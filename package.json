@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "API para um sistema de solicitação de reembolsos",
   "main": "src/server.ts",
-  "engines": ">=18",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec tsx --env-file .env src/server.ts",
     "build": "tsup src --out-dir build",
