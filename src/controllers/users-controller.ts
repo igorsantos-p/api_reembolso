@@ -34,7 +34,7 @@ class UsersController {
             }
         })
 
-        response.status(201).json({message: "ok"})
+        response.status(201).json({message: "Usuário criado com sucesso"})
     }
 }
 
