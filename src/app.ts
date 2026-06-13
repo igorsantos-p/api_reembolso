@@ -11,10 +11,6 @@ app.use(cors({
 }))
 app.use(express.json())
 
-app.get("/users", (req, res) => {
-  res.send("Hello!")
-})
-
 app.use("/uploads", express.static(uploadConfig.UPLOADS_FOLDER))
 
 app.use(routes)
