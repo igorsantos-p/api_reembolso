@@ -38,21 +38,28 @@ class RefundsController{
     page: z.coerce.number().optional().default(1),
     perPage: z.coerce.number().optional().default(10)
   })
+  
 
   const { name, page, perPage } = querySchema.parse(request.query)
 
   const skip = (page - 1) * perPage
 
+  const filterConditions: any = {
+    user: {
+      name: {
+        contains: name.trim() 
+      }
+    }
+  }
+
+  if(request.user?.role === "employee"){
+    filterConditions.user.id = request.user?.id
+  }
+
   const refunds  = await prisma.refunds.findMany({
     skip,
     take: perPage,
-    where: {
-      user: {
-        name: {
-          contains: name.trim()
-        }
-      }
-    },
+    where: filterConditions,
     orderBy: {createdAt: "desc"},
     include: {
       user: {
@@ -68,13 +75,7 @@ class RefundsController{
   })
 
   const totalRecords = await prisma.refunds.count({
-    where: {
-      user: {
-        name: {
-          contains: name.trim()
-        }
-      }
-    }
+    where: filterConditions
   })
 
   const totalPages = Math.ceil(totalRecords / perPage)

@@ -7,7 +7,8 @@ import { routes } from "./routes"
 
 const app = express()
 app.use(cors({
-  origin: "https://app-reembolso.vercel.app/"
+  origin: "http://localhost:5173"
+  // origin: "https://app-reembolso.vercel.app/"
 }))
 app.use(express.json())
 
