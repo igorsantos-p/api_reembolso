@@ -20,7 +20,7 @@ class UsersController {
         const userExists = await prisma.user.findFirst({where: {email}})
 
         if(userExists){
-            throw new AppError("-mail já cadastrado.")
+            throw new AppError("E-mail já cadastrado.")
         }
 
         const hashedPassword = await hash(password, 8)
