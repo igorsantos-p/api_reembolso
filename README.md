@@ -21,7 +21,7 @@ O sistema permite que colaboradores registrem pedidos de reembolso com comprovan
 - TypeScript
 - Express
 - Prisma ORM
-- SQLite
+- PostgreSQL
 - JWT (JSON Web Token)
 - Bcrypt
 - Multer
