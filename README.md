@@ -274,7 +274,11 @@ GET /refunds
 Permissão:
 
 ```text
-manager
+manager ou employee
+```
+
+```text
+Employee lista somente as próprias solicitações
 ```
 
 Query Params:
@@ -296,14 +300,29 @@ Query Params:
 GET /refunds/:id
 ```
 
-<img width="1920" height="1012" alt="show-refund" src="https://github.com/user-attachments/assets/e0aafc0a-3583-4181-bd54-9a2740e477c7" />
-
-
 Permissão:
 
 ```text
 employee ou manager
 ```
+
+<img width="1920" height="1012" alt="show-refund" src="https://github.com/user-attachments/assets/e0aafc0a-3583-4181-bd54-9a2740e477c7" />
+
+---
+
+### Deletar reembolso
+
+```http
+DELETE /refunds/:id
+```
+
+Permissão:
+
+```text
+employee
+```
+
+<img width="1920" height="1012" alt="delete" src="https://github.com/user-attachments/assets/76619089-5d1d-4fd0-b8d3-2dcb589091c8" />
 
 ---
 
