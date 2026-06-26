@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { prisma } from "@/database/prisma"
 import { z } from "zod"
 import { AppError } from "@/utils/AppError";
+import { DiskStorage } from "@/providers/disk-storage"
+
 
 const Categories = z.enum(["food", "services", "transport", "accommodation", "others"])
 
@@ -111,6 +113,40 @@ async show(request: Request, response: Response){
     }
   })
   response.json(refund)
+}
+async delete(request: Request, response: Response){
+  const diskStorage = new DiskStorage()
+  const paramsSchema = z.object({
+    id: z.string().uuid({message: "ID inválido"})
+  })
+
+  const { id } = paramsSchema.parse(request.params)
+
+  if(!request.user?.id){
+      throw new AppError("Não autorizado", 401)
+    }
+
+    const refund = await prisma.refunds.findUnique({
+      where: {
+        id
+      }
+    })
+
+    if(!refund){
+      throw new AppError("Solicitação não encontrada", 404)
+    }
+
+  await prisma.refunds.delete({
+    where: {
+      id
+    }
+  })
+
+  if(refund.filename){
+    await diskStorage.deleteFile(refund.filename, "upload")
+  }
+
+  response.status(204).send()
 }
 }
 
